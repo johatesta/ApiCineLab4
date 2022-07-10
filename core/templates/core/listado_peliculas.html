@@ -1,0 +1,41 @@
+{% extends 'core/basico.html' %}
+
+{% block contenido %}
+
+ <h2> Listado de peliculas </h2>
+ 
+ <table>
+    <tr>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Duracion
+        </th>
+        <th>
+            Año
+        </th>
+
+        <th>
+            Genero
+        </th>
+    </tr>
+    {% for p in peliculas %}
+       <tr>
+        <td>
+            {{p.nombre}}
+        </td>
+        <td>
+            {{p.duracion}}
+        </td>
+
+        <td>
+            {{p.anio}}
+        </td>
+
+        <td>{{p.genero}}</td>
+       </tr>
+    {% endfor %}
+ </table>
+
+{% endblock %}

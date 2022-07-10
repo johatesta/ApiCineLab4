@@ -21,3 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('core.urls'))
 ]
+admin.site.site_header="Administracion de Cineland"
+admin.site.index_title="Modulo de administracion"
