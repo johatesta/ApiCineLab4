@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import *
 from .forms import PeliculaForm
 
@@ -30,3 +30,26 @@ def nueva_pelicula(request):
             formulario.save()
             data['mensaje']="Datos Guardados Correctamente"
     return render(request,'core/nueva_pelicula.html',data)
+
+
+def modificar_pelicula(request,id):
+    pelicula = Pelicula.objects.get(id = id)
+    data = {
+        'form': PeliculaForm(instance = pelicula)
+    }
+    if request.method == 'POST':
+        formulario = PeliculaForm(data = request.POST, instance = pelicula, files = request.FILES) 
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje'] = 'Pelicula modificado con éxito'
+        data['form'] = PeliculaForm(instance = Pelicula.objects.get(id = id)) 
+
+
+    return render(request,'core/modificar_pelicula.html',data)
+
+
+def eliminar_pelicula(request, id):
+    pelicula = Pelicula.objects.get(id=id)
+    pelicula.delete()
+
+    return redirect(to="listado_peliculas")
