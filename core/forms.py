@@ -7,4 +7,4 @@ from .models import Pelicula
 class PeliculaForm(ModelForm):
     class Meta:
         model=Pelicula
-        fields=['nombre','duracion','anio','genero']
+        fields=['nombre','duracion','anio','genero','fecha_estreno','sinopsis','imagen']
