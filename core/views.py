@@ -29,6 +29,7 @@ def nueva_pelicula(request):
         if formulario.is_valid():
             formulario.save()
             data['mensaje']="Datos Guardados Correctamente"
+        data['form'] = formulario
     return render(request,'core/nueva_pelicula.html',data)
 
 
@@ -42,8 +43,8 @@ def modificar_pelicula(request,id):
         if formulario.is_valid():
             formulario.save()
             data['mensaje'] = 'Pelicula modificado con éxito'
-        data['form'] = PeliculaForm(instance = Pelicula.objects.get(id = id)) 
-
+        #data['form'] = PeliculaForm(instance = Pelicula.objects.get(id = id)) 
+        data['form'] = formulario
 
     return render(request,'core/modificar_pelicula.html',data)
 
