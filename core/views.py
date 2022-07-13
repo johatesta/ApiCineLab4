@@ -1,9 +1,13 @@
 from django.shortcuts import redirect, render
 from .models import *
+from .forms import Pelicula
 from .forms import PeliculaForm
 
 def home(request):
-    return render(request,'core/index.html')
+    data = {
+        'peliculas':Pelicula.objects.all()
+    }
+    return render(request,'core/index.html', data)
 
 
 
@@ -24,13 +28,13 @@ def nueva_pelicula(request):
         'form':PeliculaForm()
     }
 
-    if request.method== 'POST':
-        formulario=PeliculaForm(request.POST)
+    if request.method == 'POST':
+        formulario=PeliculaForm(request.POST, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
             data['mensaje']="Datos Guardados Correctamente"
         data['form'] = formulario
-    return render(request,'core/nueva_pelicula.html',data)
+    return render(request,'core/nueva_pelicula.html', data)
 
 
 def modificar_pelicula(request,id):
@@ -43,8 +47,7 @@ def modificar_pelicula(request,id):
         if formulario.is_valid():
             formulario.save()
             data['mensaje'] = 'Pelicula modificado con éxito'
-        #data['form'] = PeliculaForm(instance = Pelicula.objects.get(id = id)) 
-        data['form'] = formulario
+        data['form'] = PeliculaForm(instance = Pelicula.objects.get(id = id)) 
 
     return render(request,'core/modificar_pelicula.html',data)
 
