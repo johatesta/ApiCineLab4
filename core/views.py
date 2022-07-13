@@ -5,6 +5,9 @@ from .forms import PeliculaForm, CustomUserForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, authenticate
 
+from rest_framework import viewsets
+from .serializers import PeliculaSerializer
+
 def home(request):
     data = {
         'peliculas':Pelicula.objects.all()
@@ -75,3 +78,8 @@ def registro_usuario(request):
             login(request, user)
             return redirect(to='index')
     return render(request,'registration/registrar.html', data)
+
+
+class PeliculaViewSet(viewsets.ModelViewSet):
+    queryset = Pelicula.objects.all()
+    serializer_class = PeliculaSerializer
