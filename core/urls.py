@@ -11,6 +11,7 @@ urlpatterns = [
     path('modificar_pelicula/<id>/', modificar_pelicula, name="modificar_pelicula"),
     path('eliminar_pelicula/<id>/', eliminar_pelicula, name="eliminar_pelicula"),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('registro/', registro_usuario, name='registro_usuario'),
 ]
 
 urlpatterns +=  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

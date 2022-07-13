@@ -1,8 +1,9 @@
 from django.shortcuts import redirect, render
 from .models import *
 from .forms import Pelicula
-from .forms import PeliculaForm
+from .forms import PeliculaForm, CustomUserForm
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth import login, authenticate
 
 def home(request):
     data = {
@@ -58,3 +59,19 @@ def eliminar_pelicula(request, id):
     pelicula.delete()
 
     return redirect(to="listado_peliculas")
+
+def registro_usuario(request):
+    data = {
+        'form': CustomUserForm()
+    }
+    if request.method == 'POST':
+        formulario = CustomUserForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            #autenticar al usuario y redirigirlo al inicio
+            username = formulario.cleaned_data['username']
+            password = formulario.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect(to='index')
+    return render(request,'registration/registrar.html', data)
