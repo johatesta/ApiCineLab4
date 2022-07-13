@@ -26,9 +26,18 @@
                         <li>
                             <a href="{% url 'listado_peliculas' %}">Listado Peliculas</a>
                         </li>
+                        {% if user.is_authenticated %}
                         <li>
-                            
+                            <a href="#">Usuario: {{user.username}}</a>
                         </li>
+                        <li>
+                            <a href="{% url 'logout' %}">Cerrar sesion</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">Iniciar sesion</a>
+                        </li>
+                        {% endif %}
                 </ul>   
         </nav>
         
